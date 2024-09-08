@@ -15,9 +15,15 @@ class WebRequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(self.get_response().encode("utf-8"))
 
-    def get_response(self):
+     def get_response(self):
+
+        path=self.url().path #ruta URL
+        query_data=self.query_data() # parametros de la query string
+
+        proyecto=path.split("/")[-1]
+        autor=query_data.get("autor")
         return f"""
-    <h1> Hola Web </h1>
+    <h1>Proyecto:{proyecto} Autor: {autor} </h1>
     <p> URL Parse Result : {self.url()}         </p>
     <p> Path Original: {self.path}         </p>
     <p> Headers: {self.headers}      </p>
